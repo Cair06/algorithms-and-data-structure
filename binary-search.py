@@ -17,7 +17,10 @@
 # Returns:
 #     int: The index of the target element if found, otherwise -1.
 
-def binary_search(nums: list[int], target: int) -> int:
+
+
+def binarySearch(nums: list[int], target: int) -> int:
+    """Realization with iter"""
     left, right = 0, len(nums) - 1
 
     while left <= right:
@@ -31,4 +34,21 @@ def binary_search(nums: list[int], target: int) -> int:
             right = mid - 1
 
     return -1  # Target not found
+
+
+def binarySearchRecursive(nums: list[int], target: int, left: int = 0, right: int = 0) -> int:
+    """Realization with recursive"""
+    l, r = left, right if right != 0 else len(nums) - 1
+    m = l + (r - l) // 2
+    
+    if l > r:
+        return -1
+
+    if nums[m] == target:
+        return m
+    elif nums[m] < target:
+        return binarySearchRecursive(nums, target, m+1, r)
+    else:
+        return binarySearchRecursive(nums, target, l, m - 1)
+
 
