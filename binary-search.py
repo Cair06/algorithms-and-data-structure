@@ -29,18 +29,24 @@ def binarySearch(nums: list[int], target: int) -> int:
     return -1  # Target not found
 
 
-def binarySearchRecursive(nums: list[int], target: int, left: int = 0, right: int = 0) -> int:
-    l, r = left, right if right != 0 else len(nums) - 1
-    m = l + (r - l) // 2
+def binarySearchRecursive(nums: list[int], target: int, left: int = 0, right: int = -1) -> int:
     
-    if l > r:
+    # default right value as len of arr
+    if right == -1:
+        right = len(nums) - 1
+
+    # Basic case
+    if left > right:
         return -1
 
-    if nums[m] == target:
-        return m
-    elif nums[m] < target:
-        return binarySearchRecursive(nums, target, m+1, r)
+    mid = left + (right - left) // 2
+
+    if nums[mid] == target:
+        return mid
+
+    elif nums[mid] < target:
+        return binarySearchRecursive(nums, target, mid+1, right)
     else:
-        return binarySearchRecursive(nums, target, l, m - 1)
+        return binarySearchRecursive(nums, target, left, mid - 1)
 
 
